@@ -239,35 +239,3 @@ pip install -r requirements.txt --force-reinstall
 ⚠️ Environment: Optimal pada kondisi pencahayaan yang baik
 ⚠️ Model File: File `arcface_model.onnx` harus di-download terpisah karena ukuran besar
 
----
-
-👨‍💻 Developer
-
-Andi Resqi Putriyani Nur  
-Mahasiswa Teknik Informatika  
-Universitas Hasanuddin
-
-Skripsi: Sistem Absensi Mahasiswa Real-Time berbasis Web menggunakan YOLOv8 dan ArcFace
-
----
-
-📄 License
-
-Proyek ini dibuat untuk keperluan akademik (Skripsi). Tidak untuk tujuan komersial.
-
----
-
-🤝 Contributing
-
-Jika ingin berkontribusi pada proyek ini:
-1. Fork repository
-2. Buat branch feature baru
-3. Commit changes
-4. Push ke branch
-5. Buat Pull Request
-
----
-
-⭐ Jika proyek ini membantu, jangan lupa beri star di GitHub!
-
-
