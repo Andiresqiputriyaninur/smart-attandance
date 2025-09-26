@@ -14,9 +14,9 @@ Sistem absensi real-time yang menggunakan teknologi pengenalan wajah (face recog
 - Multi-face Support: Dapat mendeteksi multiple wajah dalam satu frame
 
 🛡️ Anti-Spoofing System
-- Liveness Detection: Deteksi apakah wajah yang terdeteksi adalah orang sungguhan
-- Photo/Video Attack Prevention: Mencegah penggunaan foto atau video untuk absensi
-- Blink & Movement Detection: Verifikasi gerakan mata dan kepala
+- Liveness Detection: Deteksi apakah wajah yang terdeteksi adalah orang sungguhan atau sekedar foto
+- Photo Attack Prevention: Mencegah penggunaan foto untuk absensi menggunakan foto B&W sebagai langkah awal percobaan anti spoofing
+
 
 📊 Manajemen Absensi
 - Real-time Attendance: Pencatatan absensi otomatis ke database
