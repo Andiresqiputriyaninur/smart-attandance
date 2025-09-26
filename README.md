@@ -14,15 +14,14 @@ Sistem absensi real-time yang menggunakan teknologi pengenalan wajah (face recog
 - Multi-face Support: Dapat mendeteksi multiple wajah dalam satu frame
 
 🛡️ Anti-Spoofing System
-- Liveness Detection: Deteksi apakah wajah yang terdeteksi adalah orang sungguhan atau sekedar foto
-- Photo Attack Prevention: Mencegah penggunaan foto untuk absensi menggunakan foto B&W sebagai langkah awal percobaan anti spoofing
+Deteksi sederhana untuk mencegah serangan foto menggunakan foto hitam putih sebagai langkah awal percobaan
 
 
 📊 Manajemen Absensi
 - Real-time Attendance: Pencatatan absensi otomatis ke database
 - History Tracking: Riwayat absensi lengkap dengan timestamp
 - Export to CSV: Ekspor data absensi untuk keperluan administrasi
-- Dashboard Analytics: Statistik kehadiran mahasiswa
+
 
 🌐 Interface Web
 - Responsive Design: Tampilan yang mobile-friendly
@@ -64,7 +63,6 @@ smart-attendance/
 │   ├── arcface_model.onnx          # Model ArcFace (perlu download terpisah)
 │   └── embeddings.pkl              # Face embeddings database
 ├── 📁 templates/                    # Template HTML
-│   ├── base.html                   # Template dasar
 │   ├── index.html                  # Halaman utama
 │   └── camera.html                 # Interface kamera
 ├── 📁 static/                       # Asset statis
@@ -166,9 +164,10 @@ Buka browser dan akses: http://localhost:5000
 🧪 Data Testing
 
 Sistem sudah dilengkapi dengan data dummy untuk testing:
-- 10+ Profil Mahasiswa dengan 5-6 foto per orang
+- 10 Profil Mahasiswa dengan 6 foto per orang
 - Variasi Pose & Ekspresi untuk meningkatkan akurasi
-- Data Real Students dari Universitas Hasanuddin
+- Data Real Students dari Universitas Muhammadiyah Makassar prodi Informatika
+- Dataset terbatas untuk keperluan demonstrasi dan testing sistem
 
 👥 Daftar Mahasiswa Testing:
 - Alfina Damayanti
@@ -181,16 +180,6 @@ Sistem sudah dilengkapi dengan data dummy untuk testing:
 - Nurul Kusumawardani
 - Syarifah
 - Widiyanti
-
----
-
-⚡ Performance & Akurasi
-
-- Face Detection: YOLOv8 dengan akurasi 95%+
-- Face Recognition: ArcFace dengan akurasi 98%+
-- Anti-Spoofing: Custom model dengan akurasi 92%+
-- Real-time Processing: ~30 FPS pada hardware standar
-- Database Response: < 100ms untuk query absensi
 
 ---
 
