@@ -114,7 +114,6 @@ File model ArcFace tidak tersedia di repository karena ukuran terlalu besar (166
 1. Download model `arcface_model.onnx` dari salah satu sumber berikut:
    - [InsightFace GitHub](https://github.com/deepinsight/insightface/tree/master/python-package)
    - [ONNX Model Zoo](https://github.com/onnx/models)
-   - Atau contact developer untuk mendapatkan file
 
 2. Letakkan file `arcface_model.onnx` di folder `models/`:
    ```
