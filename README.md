@@ -191,7 +191,7 @@ Sistem sudah dilengkapi dengan data dummy untuk testing:
 - Wajah harus menghadap kamera dengan jelas
 - Regenerate embeddings jika menambah data baru
 
-### Error Dependencies
+### Error Instalasi Dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt --force-reinstall
