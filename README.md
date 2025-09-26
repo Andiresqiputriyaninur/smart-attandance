@@ -6,14 +6,6 @@ Sistem absensi real-time yang menggunakan teknologi pengenalan wajah (face recog
 
 ---
 
-# 🎓 Smart Attendance System
-
-Sistem Absensi Cerdas berbasis Web untuk Mahasiswa
-
-Sistem absensi real-time yang menggunakan teknologi pengenalan wajah (face recognition) dengan YOLOv8 untuk deteksi wajah dan ArcFace untuk pengenalan identitas. Dilengkapi dengan sistem anti-spoofing untuk mencegah kecurangan menggunakan foto atau video.
-
----
-
 ✨ Fitur Utama
 
 🔍 Deteksi & Pengenalan Wajah
@@ -48,8 +40,8 @@ Sistem absensi real-time yang menggunakan teknologi pengenalan wajah (face recog
 | Face Recognition | ArcFace | ONNX model untuk embedding |
 | Anti-Spoofing | Custom CNN | Deep learning untuk liveness detection |
 | Computer Vision | OpenCV | Pemrosesan gambar dan video |
-| Database | SQLite/MySQL | Penyimpanan data absensi |
-| Frontend | HTML/CSS/JS | Interface web responsif |
+| Database | MySQL | Penyimpanan data absensi |
+| Frontend | HTML/CSS | Interface web responsif |
 | Machine Learning | PyTorch, ONNX | Model inference |
 
 ---
