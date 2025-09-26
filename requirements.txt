@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+# Optional dependencies for future face detection/recognition integration
+opencv-python
+numpy
+pillow
+# ultralytics and insightface can be added when real models are integrated

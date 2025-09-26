@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Smart Attendance{% endblock %}</title>
+    <!-- Pure CSS styling - No Bootstrap or external dependencies -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <!-- Font Awesome icons via CSS only -->
+    <style>
+      /* Simple icon replacements using Unicode symbols */
+      .fa-users-rectangle::before {
+        content: "👥";
+      }
+      .fa-video::before {
+        content: "📹";
+      }
+      .fa-clipboard-list::before {
+        content: "📋";
+      }
+      .fa-users::before {
+        content: "👥";
+      }
+      .fa-info-circle::before {
+        content: "ℹ️";
+      }
+      .fa-stop::before {
+        content: "⏹️";
+      }
+      .fa-camera::before {
+        content: "📷";
+      }
+      .fa-play::before {
+        content: "▶️";
+      }
+      .fa-exclamation-triangle::before {
+        content: "⚠️";
+      }
+      .fa-database::before {
+        content: "🗄️";
+      }
+      .fa-user-check::before {
+        content: "✅";
+      }
+      .fa-clock::before {
+        content: "🕐";
+      }
+      .fa-calendar::before {
+        content: "📅";
+      }
+      .fa-check::before {
+        content: "✔️";
+      }
+      .fa-inbox::before {
+        content: "📥";
+      }
+      .fa-download::before {
+        content: "⬇️";
+      }
+      .fa-flag-checkered::before {
+        content: "🏁";
+      }
+
+      /* Icon spacing */
+      [class*="fa-"]::before {
+        margin-right: 0.5rem;
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <span class="fa-users-rectangle"></span>Smart Attendance
+        </a>
+      </div>
+    </nav>
+
+    <main class="py-4">
+      <div class="container">{% block content %}{% endblock %}</div>
+    </main>
+
+    <footer class="text-center text-muted py-3 small">
+      © 2025 Smart Attendance System
+    </footer>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

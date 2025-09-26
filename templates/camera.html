@@ -1,0 +1,281 @@
+{% extends 'base.html' %} {% block title %}Rekap Absensi | Smart Attendance{%
+endblock %} {% block head %}
+<!-- Pure Python Flask - Smooth Auto Update without Refresh -->
+<style>
+  .smooth-update {
+    transition: all 0.3s ease-in-out;
+  }
+  .new-attendance {
+    background-color: #d4edda !important;
+    animation: highlight 3s ease-in-out;
+  }
+  @keyframes highlight {
+    0% {
+      background-color: #d4edda;
+    }
+    50% {
+      background-color: #c3e6cb;
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  .attendance-row {
+    transition: background-color 0.5s ease;
+  }
+</style>
+<meta http-equiv="refresh" content="2" />
+{% endblock %} {% block content %}
+<!-- Camera Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><span class="fa-video"></span>Live Camera Feed</h5>
+      </div>
+      <div class="card-body text-center">
+        <!-- Responsive image for mobile -->
+        <img
+          src="{{ url_for('video_feed') }}"
+          class="img-fluid border rounded"
+          alt="Live Camera Feed"
+          style="max-width: 100%; height: auto; max-height: 400px"
+        />
+
+        <div class="mt-3">
+          <div class="alert alert-info">
+            <h6><span class="fa-info-circle"></span>Status Real-time:</h6>
+            <ul class="mb-0 text-start small">
+              <li>
+                🟢 <strong>Hijau</strong>: Wajah dikenali & LANGSUNG TERCATAT ✓
+              </li>
+              <li>⚫ <strong>Abu-abu</strong>: Sudah tercatat sebelumnya ✓</li>
+              <li>🟡 <strong>Kuning</strong>: Wajah tidak dikenali</li>
+              <li>🔴 <strong>Merah</strong>: Foto B&W/kertas TERDETEKSI</li>
+            </ul>
+            <div class="alert alert-success mt-2 mb-0">
+              <small class="text-dark">
+                ✅ <strong>Anti-Spoofing: ULTRA AKTIF</strong><br />
+                🛡️ Deteksi foto hitam-putih MAKSIMAL | Toleran wajah asli ✓<br />
+                🔄 Update otomatis setiap 3 detik tanpa refresh mengganggu
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Session Info -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0"><span class="fa-info-circle"></span>Informasi Sesi</h5>
+      </div>
+      <div class="card-body">
+        {% if session %}
+        <div class="row">
+          <div class="col-md-3">
+            <p>
+              <strong>Dosen:</strong>
+              <span class="text-primary"
+                >{{ session.dosen if session.dosen else 'Belum diset' }}</span
+              >
+            </p>
+          </div>
+          <div class="col-md-3">
+            <p>
+              <strong>Mata Kuliah:</strong>
+              <span class="text-primary"
+                >{{ session.subject if session.subject else 'Belum diset'
+                }}</span
+              >
+            </p>
+          </div>
+          <div class="col-md-3">
+            <p>
+              <strong>Waktu Mulai:</strong>
+              <span class="text-success"
+                >{{ session.start_time if session.start_time else 'Baru saja'
+                }}</span
+              >
+            </p>
+          </div>
+          <div class="col-md-3">
+            <p>
+              <strong>Total Hadir:</strong>
+              {% if attendance_data and attendance_data|length > 0 %}
+              <span class="badge bg-success fs-6"
+                >{{ attendance_data|length }} mahasiswa</span
+              >
+              {% else %}
+              <span class="badge bg-secondary fs-6">Belum ada</span>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <small class="text-muted">
+              <span class="fa-info-circle me-1"></span>
+              Sesi ID: {{ session.session_id }} | Status:
+              <span class="badge bg-success">AKTIF</span>
+            </small>
+          </div>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+          <h6>
+            <span class="fa-exclamation-triangle me-2"></span>Tidak ada sesi
+            aktif
+          </h6>
+          <p class="mb-1">
+            Silakan buat sesi baru dari
+            <a href="{{ url_for('index') }}" class="alert-link">halaman input</a
+            >.
+          </p>
+          <small class="text-muted"
+            >Data sesi diperlukan untuk mencatat kehadiran mahasiswa.</small
+          >
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Attendance Table Section -->
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div
+        class="card-header bg-success text-white d-flex justify-content-between align-items-center"
+      >
+        <h5 class="mb-0">
+          <span class="fa-clipboard-list"></span> Daftar Kehadiran Real-time 🔄
+        </h5>
+        {% if attendance_data and attendance_data|length > 0 %}
+        <span class="badge bg-light text-success fs-6"
+          >{{ attendance_data|length }} mahasiswa hadir</span
+        >
+        {% endif %}
+      </div>
+      <div class="card-body">
+        {% if error %}
+        <div class="alert alert-danger">
+          <h6>
+            <span class="fa-exclamation-circle me-2"></span>Terjadi Kesalahan
+          </h6>
+          <p class="mb-1">{{ error }}</p>
+          <small class="text-muted">
+            Silakan
+            <a href="{{ url_for('index') }}" class="alert-link"
+              >kembali ke halaman input</a
+            >
+            dan buat sesi baru.
+          </small>
+        </div>
+        {% endif %}
+
+        <div class="table-responsive">
+          <table class="table table-hover" id="attendance-table">
+            <thead class="table-success">
+              <tr>
+                <th width="5%">No</th>
+                <th width="25%">Nama Mahasiswa</th>
+                <th width="15%">NIM</th>
+                <th width="15%">Waktu Hadir</th>
+                <th width="20%">Tanggal</th>
+                <th width="20%">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if attendance_data and attendance_data|length > 0 %} {% for
+              record in attendance_data %}
+              <tr class="attendance-row smooth-update">
+                <td><strong>{{ loop.index }}</strong></td>
+                <td>
+                  <span class="fa-user-check text-success me-2"></span>
+                  <strong
+                    >{{ record.student_name if record.student_name else
+                    'Unknown' }}</strong
+                  >
+                </td>
+                <td>
+                  <span class="badge bg-primary"
+                    >{{ record.nim if record.nim and record.nim != 'N/A' else
+                    'N/A' }}</span
+                  >
+                </td>
+                <td>
+                  <span class="fa-clock text-primary me-1"></span>
+                  <strong
+                    >{{ record.waktu_hadir if record.waktu_hadir else 'Just now'
+                    }}</strong
+                  >
+                </td>
+                <td>
+                  <span class="fa-calendar text-primary me-1"></span>
+                  {% if record.timestamp %} {% if record.timestamp.strftime is
+                  defined %} {{ record.timestamp.strftime('%Y-%m-%d') }} {% else
+                  %} {{ record.timestamp }} {% endif %} {% else %} {{
+                  moment().format('YYYY-MM-DD') if moment is defined else
+                  'Today' }} {% endif %}
+                </td>
+                <td>
+                  <span class="badge bg-success fs-6">
+                    <span class="fa-check me-1"></span>HADIR
+                  </span>
+                </td>
+              </tr>
+              {% endfor %} {% else %}
+              <tr>
+                <td colspan="6" class="text-center text-muted py-4">
+                  <span
+                    class="fa-user-clock"
+                    style="
+                      font-size: 2rem;
+                      display: block;
+                      margin-bottom: 0.5rem;
+                      color: #6c757d;
+                    "
+                  ></span>
+                  <h6 class="mb-1">Belum ada mahasiswa yang hadir</h6>
+                  <small class="text-muted">
+                    Tabel akan update otomatis setiap 2 detik<br />
+                    Ketika wajah dikenali, nama akan muncul di sini secara
+                    real-time ✨
+                  </small>
+                </td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="d-grid gap-2">
+      <a href="{{ url_for('download_csv') }}" class="btn btn-success btn-lg">
+        <span class="fa-download"></span> Download CSV
+      </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="d-grid gap-2">
+      <form method="POST" action="{{ url_for('selesai') }}">
+        <button type="submit" class="btn btn-primary btn-lg w-100">
+          <span class="fa-flag-checkered"></span> Selesai
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
