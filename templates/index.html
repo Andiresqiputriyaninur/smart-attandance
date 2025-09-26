@@ -1,64 +1,108 @@
-{% extends 'base.html' %}
-{% block title %}Home | Smart Attendance{% endblock %}
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">
-                    <span class="fa-camera"></span>Smart Attendance System
-                </h4>
-            </div>
-            <div class="card-body">
-                <p class="text-muted">Sistem absensi mahasiswa dengan teknologi face recognition dan anti-spoofing</p>
-                
-                {% if error %}
-                <div class="alert alert-danger">
-                    <span class="fa-exclamation-triangle"></span>{{ error }}
-                </div>
-                {% endif %}
-                
-                {% if dosens|length == 0 and subjects|length == 0 %}
-                <div class="alert alert-warning">
-                    <span class="fa-database"></span>Data belum tersedia. Silakan hubungi administrator.
-                </div>
-                {% endif %}
-                
-                <form method="POST" action="{{ url_for('start_session') }}">
-                    <div class="mb-3">
-                        <label for="dosen" class="form-label">Nama Dosen</label>
-                        <select name="dosen" id="dosen" class="form-select" required>
-                            <option value="">Pilih Dosen</option>
-                            {% for dosen in dosens %}
-                            <option value="{{ dosen }}">{{ dosen }}</option>
-                            {% endfor %}
-                        </select>
-                        {% if dosens|length == 0 %}
-                        <div class="form-text text-danger">Tidak ada data dosen tersedia</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Smart Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+      /* Simple icon replacements using Unicode symbols */
+      .fa-users-rectangle::before { content: "👥"; }
+      .fa-video::before { content: "📹"; }
+      .fa-clipboard-list::before { content: "📋"; }
+      .fa-users::before { content: "👥"; }
+      .fa-info-circle::before { content: "ℹ️"; }
+      .fa-stop::before { content: "⏹️"; }
+      .fa-camera::before { content: "📷"; }
+      .fa-play::before { content: "▶️"; }
+      .fa-exclamation-triangle::before { content: "⚠️"; }
+      .fa-database::before { content: "🗄️"; }
+      .fa-user-check::before { content: "✅"; }
+      .fa-clock::before { content: "🕐"; }
+      .fa-calendar::before { content: "📅"; }
+      .fa-check::before { content: "✔️"; }
+      .fa-inbox::before { content: "📥"; }
+      .fa-download::before { content: "⬇️"; }
+      .fa-flag-checkered::before { content: "🏁"; }
+      [class*="fa-"]::before { margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <span class="fa-users-rectangle"></span>Smart Attendance
+        </a>
+      </div>
+    </nav>
+
+    <main class="py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <span class="fa-camera"></span>Smart Attendance System
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Sistem absensi mahasiswa dengan teknologi face recognition dan anti-spoofing</p>
+                        
+                        {% if error %}
+                        <div class="alert alert-danger">
+                            <span class="fa-exclamation-triangle"></span>{{ error }}
+                        </div>
                         {% endif %}
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Mata Kuliah</label>
-                        <select name="subject" id="subject" class="form-select" required>
-                            <option value="">Pilih Mata Kuliah</option>
-                            {% for subject in subjects %}
-                            <option value="{{ subject }}">{{ subject }}</option>
-                            {% endfor %}
-                        </select>
-                        {% if subjects|length == 0 %}
-                        <div class="form-text text-danger">Tidak ada data mata kuliah tersedia</div>
+                        
+                        {% if dosens|length == 0 and subjects|length == 0 %}
+                        <div class="alert alert-warning">
+                            <span class="fa-database"></span>Data belum tersedia. Silakan hubungi administrator.
+                        </div>
                         {% endif %}
+                        
+                        <form method="POST" action="{{ url_for('start_session') }}">
+                            <div class="mb-3">
+                                <label for="dosen" class="form-label">Nama Dosen</label>
+                                <select name="dosen" id="dosen" class="form-select" required>
+                                    <option value="">Pilih Dosen</option>
+                                    {% for dosen in dosens %}
+                                    <option value="{{ dosen }}">{{ dosen }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if dosens|length == 0 %}
+                                <div class="form-text text-danger">Tidak ada data dosen tersedia</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Mata Kuliah</label>
+                                <select name="subject" id="subject" class="form-select" required>
+                                    <option value="">Pilih Mata Kuliah</option>
+                                    {% for subject in subjects %}
+                                    <option value="{{ subject }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if subjects|length == 0 %}
+                                <div class="form-text text-danger">Tidak ada data mata kuliah tersedia</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg" {% if dosens|length == 0 or subjects|length == 0 %}disabled{% endif %}>
+                                    <span class="fa-play"></span>Mulai Sesi Absensi
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg" {% if dosens|length == 0 or subjects|length == 0 %}disabled{% endif %}>
-                            <span class="fa-play"></span>Mulai Sesi Absensi
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+      </div>
+    </main>
+
+    <footer class="text-center text-muted py-3 small">
+      © 2025 Smart Attendance System
+    </footer>
+</body>
+</html>

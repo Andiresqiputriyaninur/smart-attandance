@@ -1,31 +1,67 @@
-{% extends 'base.html' %} {% block title %}Rekap Absensi | Smart Attendance{%
-endblock %} {% block head %}
-<!-- Pure Python Flask - Smooth Auto Update without Refresh -->
-<style>
-  .smooth-update {
-    transition: all 0.3s ease-in-out;
-  }
-  .new-attendance {
-    background-color: #d4edda !important;
-    animation: highlight 3s ease-in-out;
-  }
-  @keyframes highlight {
-    0% {
-      background-color: #d4edda;
-    }
-    50% {
-      background-color: #c3e6cb;
-    }
-    100% {
-      background-color: transparent;
-    }
-  }
-  .attendance-row {
-    transition: background-color 0.5s ease;
-  }
-</style>
-<meta http-equiv="refresh" content="2" />
-{% endblock %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rekap Absensi | Smart Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+      /* Simple icon replacements using Unicode symbols */
+      .fa-users-rectangle::before { content: "👥"; }
+      .fa-video::before { content: "📹"; }
+      .fa-clipboard-list::before { content: "📋"; }
+      .fa-users::before { content: "👥"; }
+      .fa-info-circle::before { content: "ℹ️"; }
+      .fa-stop::before { content: "⏹️"; }
+      .fa-camera::before { content: "📷"; }
+      .fa-play::before { content: "▶️"; }
+      .fa-exclamation-triangle::before { content: "⚠️"; }
+      .fa-database::before { content: "🗄️"; }
+      .fa-user-check::before { content: "✅"; }
+      .fa-clock::before { content: "🕐"; }
+      .fa-calendar::before { content: "📅"; }
+      .fa-check::before { content: "✔️"; }
+      .fa-inbox::before { content: "📥"; }
+      .fa-download::before { content: "⬇️"; }
+      .fa-flag-checkered::before { content: "🏁"; }
+      [class*="fa-"]::before { margin-right: 0.5rem; }
+      
+      /* Pure Python Flask - Smooth Auto Update without Refresh */
+      .smooth-update {
+        transition: all 0.3s ease-in-out;
+      }
+      .new-attendance {
+        background-color: #d4edda !important;
+        animation: highlight 3s ease-in-out;
+      }
+      @keyframes highlight {
+        0% {
+          background-color: #d4edda;
+        }
+        50% {
+          background-color: #c3e6cb;
+        }
+        100% {
+          background-color: transparent;
+        }
+      }
+      .attendance-row {
+        transition: background-color 0.5s ease;
+      }
+    </style>
+    <meta http-equiv="refresh" content="2" />
+</head>
+<body>
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <span class="fa-users-rectangle"></span>Smart Attendance
+        </a>
+      </div>
+    </nav>
+
+    <main class="py-4">
+      <div class="container">
 <!-- Camera Section -->
 <div class="row mb-4">
   <div class="col-12">
@@ -278,4 +314,11 @@ endblock %} {% block head %}
     </div>
   </div>
 </div>
-{% endblock %}
+      </div>
+    </main>
+
+    <footer class="text-center text-muted py-3 small">
+      © 2025 Smart Attendance System
+    </footer>
+</body>
+</html>
